@@ -1,0 +1,62 @@
+From a6a3efb3813ce8bf5f13d2fba78bbeb598e811c6 Mon Sep 17 00:00:00 2001
+From: wjyrich <1071633242@qq.com>
+Date: Mon, 19 Aug 2024 16:13:39 +0800
+Subject: [PATCH] install
+
+---
+ CMakeLists.txt                |  2 +-
+ openhantek/CMakeLists.txt     |  7 +++++++
+ openhantek/OpenHantek.desktop | 11 +++++++++++
+ 3 files changed, 19 insertions(+), 1 deletion(-)
+ create mode 100644 openhantek/OpenHantek.desktop
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index f4d6c26..cda6a8a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -30,7 +30,7 @@ endif()
+ if("${CMAKE_SYSTEM}" MATCHES "Linux")
+   if(EXISTS "/lib/udev/rules.d/")
+     install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/firmware/60-hantek.rules"
+-      DESTINATION "/lib/udev/rules.d/" COMPONENT Runtime)
++      DESTINATION lib/udev/rules.d COMPONENT Runtime)
+   else()
+     message(WARNING "Could not find udev rules directory (/lib/udev/rules.d/), skipping installation of udev rules.")
+   endif()
+diff --git a/openhantek/CMakeLists.txt b/openhantek/CMakeLists.txt
+index 04fa813..687949c 100644
+--- a/openhantek/CMakeLists.txt
++++ b/openhantek/CMakeLists.txt
+@@ -67,4 +67,11 @@ endif()
+ # install commands
+ install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION "bin")
+ 
++install(FILES res/images/openhantek.png
++        DESTINATION share/icons)
++
++
++install(FILES OpenHantek.desktop
++            DESTINATION share/applications)
++
+ include(../cmake/copy_qt5_dlls_to_bin_dir.cmake)
+diff --git a/openhantek/OpenHantek.desktop b/openhantek/OpenHantek.desktop
+new file mode 100644
+index 0000000..c0845e8
+--- /dev/null
++++ b/openhantek/OpenHantek.desktop
+@@ -0,0 +1,11 @@
++[Desktop Entry]
++Categories=Accessibility;Qt;Utility;
++Exec=OpenHantek
++Name=OpenHantek
++Name[zh_CN]=OpenHantek
++Icon=openhantek
++StartupNotify=false
++Terminal=false
++Type=Application
++GenericName=OpenHantek
++Version=
+\ No newline at end of file
+-- 
+2.43.4
+
